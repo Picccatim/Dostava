@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <p><small>Vaši podaci će biti korišćeni isključivo u svrhu povratne informacije i neće biti deljeni sa trećim licima.</small></p>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knjiga Utisaka</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            background-color: #c2e983;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: rgb(255, 255, 255);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(92, 8, 8, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 3em;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 10px;
+            max-width: 150px;
+        }
+        .stars {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            flex-direction: row-reverse;
+        }
+        .stars input {
+            display: none;
+        }
+        .stars label {
+            font-size: 3rem;
+            color: rgb(211, 211, 211);
+            cursor: pointer;
+        }
+        .stars input:checked ~ label,
+        .stars label:hover,
+        .stars label:hover ~ label {
+            color: gold;
+        }
+        textarea, input[type="tel"] {
+            width: 90%;
+            height: 30px;
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .success-message, .error-message {
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 90px;
+            margin-top: 20px;
+            display: none;
+            border-radius: 10px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 600px;
+            z-index: 1000;
+        }
+        .success-message {
+            background-color: green;
+        }
+        .error-message {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://i.postimg.cc/VLy3cMJk/Pica-tim-crni-logo-copy-1.png" alt="Logo" class="logo">
+        <h1>Važno nam je Vaše mišljenje</h1>
+        <form id="feedbackForm">
+            <div>
+                <p>Kako ocenjujete uslugu našeg kolege dostavljača?</p>
+                <div class="stars">
+                    <input type="radio" id="usluga-5" name="usluga" value="5">
+                    <label for="usluga-5">★</label>
+                    <input type="radio" id="usluga-4" name="usluga" value="4">
+                    <label for="usluga-5">★</label>
+                    <input type="radio" id="usluga-3" name="usluga" value="3">
+                    <label for="usluga-3">★</label>
+                    <input type="radio" id="usluga-2" name="usluga" value="2">
+                    <label for="usluga-2">★</label>
+                    <input type="radio" id="usluga-1" name="usluga" value="1">
+                    <label for="usluga-1">★</label>
+                </div>
+            </div>
+            <div>
+                <p>Kako ocenjujete uslugu kolega pri prijemu porudžbine?</p>
+                <div class="stars">
+                    <input type="radio" id="higijena-5" name="higijena" value="5">
+                    <label for="higijena-5">★</label>
+                    <input type="radio" id="higijena-4" name="higijena" value="4">
+                    <label for="higijena-4">★</label>
+                    <input type="radio" id="higijena-3" name="higijena" value="3">
+                    <label for="higijena-3">★</label>
+                    <input type="radio" id="higijena-2" name="higijena" value="2">
+                    <label for="higijena-2">★</label>
+                    <input type="radio" id="higijena-1" name="higijena" value="1">
+                    <label for="higijena-1">★</label>
+                </div>
+            </div>
+            <div>
+                <p>Kako ocenjujete kvalitet hrane koja je dostavljena?</p>
+                <div class="stars">
+                    <input type="radio" id="hrana-5" name="hrana" value="5">
+                    <label for="hrana-5">★</label>
+                    <input type="radio" id="hrana-4" name="hrana" value="4">
+                    <label for="hrana-4">★</label>
+                    <input type="radio" id="hrana-3" name="hrana" value="3">
+                    <label for="hrana-3">★</label>
+                    <input type="radio" id="hrana-2" name="hrana" value="2">
+                    <label for="hrana-2">★</label>
+                    <input type="radio" id="hrana-1" name="hrana" value="1">
+                    <label for="hrana-1">★</label>
+                </div>
+            </div>
+            <div>
+                <p>Unesite broj telefona (obavezno):</p>
+                <input type="tel" name="telefon" placeholder="Vaš broj telefona..." required>
+            </div>
+            <div>
+                <p>Dodajte komentar (opciono):</p>
+                <textarea name="komentar" placeholder="Vaš komentar..."></textarea>
+            </div>
+            <button type="submit">Pošalji</button>
+            <p class="success-message" id="successMessage">Vaš utisak je uspešno poslat. Hvala!</p>
+            <p class="error-message" id="errorMessage">Došlo je do greške. Pokušajte ponovo.</p>
+        </form>
+    </div>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init('0hzyVb3nQqcRry3lf'); // Tvoj Public Key
+        })();
+
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const usluga = document.querySelector('input[name="usluga"]:checked')?.value || 'Nije ocenjeno';
+            const higijena = document.querySelector('input[name="higijena"]:checked')?.value || 'Nije ocenjeno';
+            const hrana = document.querySelector('input[name="hrana"]:checked')?.value || 'Nije ocenjeno';
+            const telefon = document.querySelector('input[name="telefon"]').value;
+            const komentar = document.querySelector('textarea[name="komentar"]').value;
+
+            if (!telefon.trim()) {
+                alert('Unesite broj telefona.');
+                return;
+            }
+
+            const templateParams = {
+                usluga: usluga,
+                higijena: higijena,
+                hrana: hrana,
+                telefon: telefon,
+                komentar: komentar,
+            };
+
+            fetch('https://api.emailjs.com/api/v1.0/email/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    service_id: '123456abc',
+                    template_id: 'template_o0pmejc',
+                    user_id: '0hzyVb3nQqcRry3lf',
+                    template_params: templateParams,
+                }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById('successMessage').style.display = 'block';
+                        document.getElementById('errorMessage').style.display = 'none';
+                        setTimeout(() => location.reload(), 3000);
+                    } else {
+                        return response.text().then(error => {
+                            console.error('Greška prilikom slanja emaila:', error);
+                            document.getElementById('successMessage').style.display = 'none';
+                            document.getElementById('errorMessage').style.display = 'block';
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Greška prilikom slanja emaila:', error);
+                    document.getElementById('successMessage').style.display = 'none';
+                    document.getElementById('errorMessage').style.display = 'block';
+                });
+        });
+    </script>
+</body>
+</html>
